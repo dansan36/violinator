@@ -1,0 +1,50 @@
+methods
+  id (bigint, PK)
+  name
+  author
+  publisher (nullable)
+  notes (nullable, text)
+  status (varchar + check)
+  deadline_date (nullable, date)
+  timestamps
+
+exercises
+  id (bigint, PK)
+  method_id (FK -> methods)
+  name
+  status (varchar + check)
+  notes (nullable, text)
+  deadline_date (nullable, date)
+  timestamps
+
+repertoires
+  id (bigint, PK)
+  title
+  composer
+  difficulty
+  status (varchar + check)
+  notes (nullable, text)
+  deadline_date (nullable, date)
+  timestamps
+
+sessions
+  id (bigint, PK)
+  session_date
+  notes (nullable, text)
+  timestamps
+  -- sem total_duration_minutes (accessor)
+
+session_blocks
+  id (bigint, PK)
+  session_id (FK -> sessions)
+  type (varchar + check: scale, method, repertoire, free)
+  duration_minutes (integer)
+  exercise_id (FK -> exercises, nullable)
+  repertoire_id (FK -> repertoires, nullable)
+  timestamps
+
+audio_attachments
+  id (bigint, PK)
+  session_block_id (FK -> session_blocks)
+  file_path
+  timestamps
